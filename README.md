@@ -4,7 +4,7 @@ An http client testing tool. You can use it to check:
 
   * your client can handle random errors (status codes)
   * your client's outgoing request (gets printed on the server terminal)
-  * how many requests your client makes in a time window, to se if your throttling is working
+  * how many requests your client makes in a time window, to see if your throttling is working
   * how your client reacts to responses taking too long
   and anything else you can think of given the possible funcitonalities
 
