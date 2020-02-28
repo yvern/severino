@@ -15,7 +15,7 @@
     (do (swap! conns inc)
         (<!! (timeout dur))
         (go (swap! conns dec))
-     {:status (rand-nth chances)
+     {:status (if (empty? chances) 200 (rand-nth chances))
       :headers {"content-type" "application/json"}
       :body (jstr {:connections @conns})})))
 
@@ -34,12 +34,13 @@
   * max-connections (int): will handle at most this number of connections, responding with 503 immediatly if this limit is reached
   * duration (int): amout of time, in ms, to keep client waiting before sending response
   * chances (key value int pairs): status codes and their relative chances of occuring, for example '403=1 201=3' means 1 in every 4 responses will have status code 403, and the remaining 3 will have 201
+  if no pairs of statuses and chances is provided, it simply answers with 200
   "
   ([] (doc -main))
   ([p maxconns dur & chances]
    (let [conns (atom 0)]
      (println (str "listening on port " p))
-     (println (str "handling at most " maxconns " at a time, with " dur " delay"))
+     (println (str "handling at most " maxconns " at a time, with " dur "ms delay"))
      (println (str "codes and chances: " chances))
      (start-server
        (partial handler conns

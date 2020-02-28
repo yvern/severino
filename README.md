@@ -23,6 +23,7 @@ or, from docker:
   * max-connections (int): will handle at most this number of connections, responding with 503 immediatly if this limit is reached
   * duration (int): amout of time, in ms, to keep client waiting before sending response
   * chances (key value int pairs): status codes and their relative chances of occuring, for example '403=1 201=3' means 1 in every 4 responses will have status code 403, and the remaining 3 will have 201
+  if no pairs of statuses and chances is provided, it simply answers with 200
 
 
 ## License
